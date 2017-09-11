@@ -1,5 +1,8 @@
 package com.andreinicolae.moodyquote;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +12,12 @@ import android.widget.Toast;
 
 import com.andreinicolae.moodyquote.Database.MoodyQuoteDbHelper;
 
+import static com.andreinicolae.moodyquote.R.styleable.AlertDialog;
 import static com.andreinicolae.moodyquote.R.styleable.View;
 
 public class MoodyQuoteActivity extends AppCompatActivity {
     MoodyQuoteDbHelper mDbHelper;
-    Button insertButton;
+    Button insertBtn, viewDataBtn;
     EditText editAuthor, editQuote, editMood;
 
     @Override
@@ -25,12 +29,14 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         editAuthor = (EditText) findViewById(R.id.editAuthor);
         editQuote = (EditText) findViewById(R.id.editQuote);
         editMood = (EditText) findViewById(R.id.editMood);
-        insertButton = (Button) findViewById(R.id.insertButton);
+        insertBtn = (Button) findViewById(R.id.insertButton);
+        viewDataBtn = (Button) findViewById(R.id.viewAllButton);
         insertData();
+        viewData();
     }
 
     public void insertData() {
-        insertButton.setOnClickListener(
+        insertBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick (View v){
@@ -48,6 +54,43 @@ public class MoodyQuoteActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void viewData() {
+        viewDataBtn.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick (View v) {
+                        Cursor cursor = mDbHelper.getAllData();
+                        // Check for data in the database
+                        if (cursor.getCount() == 0) {
+                            showMessage("Error", "No data found!");
+//                            Toast.makeText(MoodyQuoteActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
+                        }
+
+                        StringBuffer buffer = new StringBuffer();
+
+                        // Append all data to the buffer
+                        while (cursor.moveToNext()) {
+                            buffer.append("Id: " + cursor.getString(0) + "\n");
+                            buffer.append("Author: " + cursor.getString(1) + "\n");
+                            buffer.append("Quote: " + cursor.getString(2) + "\n");
+                            buffer.append("Author: " + cursor.getString(3) + "\n \n");
+                        }
+
+                        showMessage("Data", buffer.toString());
+//                        Toast.makeText(MoodyQuoteActivity.this, buffer.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
+
+    public void showMessage(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
     }
 
 }

@@ -77,8 +77,11 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
             COL_3
         };
 
-        String selection = COL_4 + " = ?";
-        String[] selectionArgs = { "Nostalgic" };
+        // TODO: replace 5 with table length
+        int randomID = 4 + (int)(Math.random() * ((5 - 4) + 1));
+
+        String selection = COL_4 + " = ? AND " + COL_1 + " = ?" ;
+        String[] selectionArgs = { "Nostalgic", ""+ randomID +"" };
 
         String sortOrder = COL_2 + " ASC";
 

@@ -8,9 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andreinicolae.moodyquote.Database.MoodyQuoteDbHelper;
+
+import java.util.HashMap;
+import java.util.List;
 
 import static com.andreinicolae.moodyquote.R.styleable.AlertDialog;
 import static com.andreinicolae.moodyquote.R.styleable.View;
@@ -18,6 +22,7 @@ import static com.andreinicolae.moodyquote.R.styleable.View;
 public class MoodyQuoteActivity extends AppCompatActivity {
     MoodyQuoteDbHelper mDbHelper;
     Button insertBtn, viewDataBtn;
+    TextView showQuote;
     EditText editAuthor, editQuote, editMood;
 
     @Override
@@ -31,8 +36,11 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         editMood = (EditText) findViewById(R.id.editMood);
         insertBtn = (Button) findViewById(R.id.insertButton);
         viewDataBtn = (Button) findViewById(R.id.viewAllButton);
+        showQuote = (TextView) findViewById(R.id.showQuote);
         insertData();
         viewData();
+        HashMap<String, String> quotes = viewSelection();
+        showQuote.setText(quotes.toString());
     }
 
     public void insertData() {
@@ -56,6 +64,8 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         );
     }
 
+
+
     public void viewData() {
         viewDataBtn.setOnClickListener(
                 new View.OnClickListener(){
@@ -75,14 +85,28 @@ public class MoodyQuoteActivity extends AppCompatActivity {
                             buffer.append("Id: " + cursor.getString(0) + "\n");
                             buffer.append("Author: " + cursor.getString(1) + "\n");
                             buffer.append("Quote: " + cursor.getString(2) + "\n");
-                            buffer.append("Author: " + cursor.getString(3) + "\n \n");
+                            buffer.append("Mood: " + cursor.getString(3) + "\n \n");
                         }
+                        cursor.close();
 
                         showMessage("Data", buffer.toString());
 //                        Toast.makeText(MoodyQuoteActivity.this, buffer.toString(), Toast.LENGTH_LONG).show();
                     }
                 }
         );
+    }
+
+    public HashMap<String, String> viewSelection() {
+        Cursor cursor = mDbHelper.readData();
+
+        HashMap<String, String> quoteMap = new HashMap<>();
+
+        while (cursor.moveToNext()) {
+            quoteMap.put(cursor.getString(0), cursor.getString(1));
+        }
+        cursor.close();
+
+        return quoteMap;
     }
 
     public void showMessage(String title, String message) {

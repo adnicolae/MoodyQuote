@@ -70,4 +70,29 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor readData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] projection = {
+            COL_2,
+            COL_3
+        };
+
+        String selection = COL_4 + " = ?";
+        String[] selectionArgs = { "Nostalgic" };
+
+        String sortOrder = COL_2 + " ASC";
+
+        Cursor cursor = db.query(
+                TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+
+        return cursor;
+    }
+
 }

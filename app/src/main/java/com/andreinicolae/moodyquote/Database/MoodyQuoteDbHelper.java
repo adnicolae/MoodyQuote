@@ -19,7 +19,7 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + " (" +
-            COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COL_1 + " INTEGER PRIMARY KEY," +
             COL_2 + " VARCHAR2(20),"+
             COL_3 + " TEXT,"+
             COL_4 + " VARCHAR2(15))";

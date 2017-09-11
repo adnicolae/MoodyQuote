@@ -1,5 +1,6 @@
 package com.andreinicolae.moodyquote.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -41,4 +42,25 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
+
+    public boolean insertData(String author, String quote, String mood) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_2, author);
+        values.put(COL_3, quote);
+        values.put(COL_4, mood);
+
+        /* Insert the new row
+        *  Returns the primary key value of the new row
+        */
+        long newRow = db.insert(TABLE_NAME, null, values);
+
+        if (newRow == -1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
 }

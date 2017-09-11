@@ -7,9 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- *  SQL Helper to create and maintain the database and tables.
+ *  SQL Helper Class to create and maintain the database and tables.
  */
 
+// TODO: Refactor
 public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Quote.db";
@@ -77,13 +78,10 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
             COL_3
         };
 
-        // TODO: replace 5 with table length
-        int randomID = 4 + (int)(Math.random() * ((5 - 4) + 1));
+        String selection = COL_4 + " = ?" ;
+        String[] selectionArgs = { "Nostalgic" };
 
-        String selection = COL_4 + " = ? AND " + COL_1 + " = ?" ;
-        String[] selectionArgs = { "Nostalgic", ""+ randomID +"" };
-
-        String sortOrder = COL_2 + " ASC";
+        String sortOrder = "RANDOM() LIMIT 1";
 
         Cursor cursor = db.query(
                 TABLE_NAME,

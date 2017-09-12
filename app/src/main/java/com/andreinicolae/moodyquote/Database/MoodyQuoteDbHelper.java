@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static com.andreinicolae.moodyquote.Database.QuoteDbContract.QuoteEntry;
+
 /**
  *  SQL Helper Class to create and maintain the database and tables.
  */
@@ -14,21 +16,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Quote.db";
-    public static final String TABLE_NAME =  "quote_table";
-    public static final String COL_1 = "ID";
-    public static final String COL_2 = "Author";
-    public static final String COL_3 = "Quote";
-    public static final String COL_4 = "Mood";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + TABLE_NAME + " (" +
-            COL_1 + " INTEGER PRIMARY KEY," +
-            COL_2 + " VARCHAR2(20),"+
-            COL_3 + " TEXT,"+
-            COL_4 + " VARCHAR2(15))";
+            "CREATE TABLE " + QuoteEntry.TABLE_NAME + " (" +
+            QuoteEntry._ID + " INTEGER PRIMARY KEY," +
+            QuoteEntry.COL_AUTHOR+ " VARCHAR2(20),"+
+            QuoteEntry.COL_QUOTE + " TEXT,"+
+            QuoteEntry.COL_MOOD + " VARCHAR2(15))";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DELETE TABLE IF EXISTS " + TABLE_NAME;
+            "DELETE TABLE IF EXISTS " + QuoteEntry.TABLE_NAME;
 
     public MoodyQuoteDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -48,14 +45,14 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
     public boolean insertData(String author, String quote, String mood) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_2, author);
-        values.put(COL_3, quote);
-        values.put(COL_4, mood);
+        values.put(QuoteEntry.COL_AUTHOR, author);
+        values.put(QuoteEntry.COL_QUOTE, quote);
+        values.put(QuoteEntry.COL_MOOD, mood);
 
         /* Insert the new row
         *  Returns the primary key value of the new row
         */
-        long newRow = db.insert(TABLE_NAME, null, values);
+        long newRow = db.insert(QuoteEntry.TABLE_NAME, null, values);
 
         if (newRow == -1) {
             return false;
@@ -67,24 +64,24 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + QuoteEntry.TABLE_NAME, null);
         return cursor;
     }
 
     public Cursor readData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] projection = {
-            COL_2,
-            COL_3
+            QuoteEntry.COL_AUTHOR,
+            QuoteEntry.COL_QUOTE
         };
 
-        String selection = COL_4 + " = ?" ;
+        String selection = QuoteEntry.COL_MOOD + " = ?" ;
         String[] selectionArgs = { "Nostalgic" };
 
         String sortOrder = "RANDOM() LIMIT 1";
 
         Cursor cursor = db.query(
-                TABLE_NAME,
+                QuoteEntry.TABLE_NAME,
                 projection,
                 selection,
                 selectionArgs,

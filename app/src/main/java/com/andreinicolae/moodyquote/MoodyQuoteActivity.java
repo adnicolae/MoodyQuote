@@ -21,7 +21,7 @@ import static com.andreinicolae.moodyquote.R.styleable.View;
 
 public class MoodyQuoteActivity extends AppCompatActivity {
     MoodyQuoteDbHelper mDbHelper;
-    Button insertBtn, viewDataBtn;
+    Button insertBtn, viewDataBtn, nostalgicBtn;
     TextView showQuote;
     EditText editAuthor, editQuote, editMood;
 
@@ -37,10 +37,11 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         insertBtn = (Button) findViewById(R.id.insertButton);
         viewDataBtn = (Button) findViewById(R.id.viewAllButton);
         showQuote = (TextView) findViewById(R.id.showQuote);
+        nostalgicBtn = (Button) findViewById(R.id.nostalgicBtn);
+
         insertData();
         viewData();
-        HashMap<String, String> quotes = viewSelection();
-        showQuote.setText(quotes.toString());
+        showQuote(nostalgicBtn);
     }
 
     public void insertData() {
@@ -96,8 +97,21 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         );
     }
 
-    public HashMap<String, String> viewSelection() {
-        Cursor cursor = mDbHelper.readData();
+    public void showQuote(final Button btn) {
+        btn.setOnClickListener(
+                new View.OnClickListener(){
+
+                    @Override
+                    public void onClick (View v) {
+                        HashMap<String, String> quotes = viewSelection(btn.getText().toString());
+                        showQuote.setText(quotes.toString());
+                    }
+                }
+        );
+    }
+
+    public HashMap<String, String> viewSelection(String mood) {
+        Cursor cursor = mDbHelper.readData(mood);
 
         HashMap<String, String> quoteMap = new HashMap<>();
 

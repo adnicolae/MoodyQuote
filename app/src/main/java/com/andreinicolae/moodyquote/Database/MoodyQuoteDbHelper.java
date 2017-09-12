@@ -12,7 +12,6 @@ import static com.andreinicolae.moodyquote.Database.QuoteDbContract.QuoteEntry;
  *  SQL Helper Class to create and maintain the database and tables.
  */
 
-// TODO: Refactor
 public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Quote.db";
@@ -68,7 +67,7 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor readData() {
+    public Cursor readData(String mood) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] projection = {
             QuoteEntry.COL_AUTHOR,
@@ -76,7 +75,7 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
         };
 
         String selection = QuoteEntry.COL_MOOD + " = ?" ;
-        String[] selectionArgs = { "Nostalgic" };
+        String[] selectionArgs = { mood };
 
         String sortOrder = "RANDOM() LIMIT 1";
 

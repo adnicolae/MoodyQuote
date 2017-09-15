@@ -1,6 +1,8 @@
 package com.andreinicolae.moodyquote.Activities;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,7 @@ import static com.andreinicolae.moodyquote.R.id.showQuote;
 
 public class MoodyQuoteActivity extends AppCompatActivity {
     Button nostalgicBtn, sadBtn, fearfulBtn, doubtfulBtn;
+    FloatingActionButton floatingBtn;
     MoodyQuoteDbHelper mDbHelper;
 
     @Override
@@ -28,12 +31,28 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         sadBtn = (Button) findViewById(R.id.btnSad);
         fearfulBtn = (Button) findViewById(R.id.btnFearful);
         doubtfulBtn = (Button) findViewById(R.id.btnDoubtful);
+        floatingBtn = (FloatingActionButton) findViewById(R.id.flloatingBtn);
+
+        linkActivities();
 
         Button[] buttons = new Button[] { nostalgicBtn, sadBtn, fearfulBtn, doubtfulBtn };
 
         for (Button btn : buttons) {
             showQuote(btn);
         }
+    }
+
+    public void linkActivities() {
+        final Intent myIntent = new Intent(MoodyQuoteActivity.this, QuoteManagementActivity.class);
+        floatingBtn.setOnClickListener(
+                new View.OnClickListener() {
+
+                    @Override
+                    public void onClick (View v) {
+                        startActivity(myIntent);
+                    }
+                }
+        );
     }
 
     public void showQuote(final Button btn) {

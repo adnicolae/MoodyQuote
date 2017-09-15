@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.andreinicolae.moodyquote.Database.MoodyQuoteDbHelper;
+import com.andreinicolae.moodyquote.Models.QuoteModel;
 import com.andreinicolae.moodyquote.R;
 
 import java.util.HashMap;
@@ -61,23 +62,24 @@ public class MoodyQuoteActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick (View v) {
-                        HashMap<String, String> quotes = viewSelection(btn.getText().toString());
-                        Toast.makeText(MoodyQuoteActivity.this, quotes.toString(), Toast.LENGTH_SHORT).show();
+                        QuoteModel quotes = viewSelection(btn.getText().toString());
+                        Toast.makeText(MoodyQuoteActivity.this, "Author: " + quotes.getAuthor() + "; Quote: " + quotes.getQuote(), Toast.LENGTH_SHORT).show();
                     }
                 }
         );
     }
 
-    public HashMap<String, String> viewSelection(String mood) {
+    public QuoteModel viewSelection(String mood) {
         Cursor cursor = mDbHelper.readData(mood);
 
-        HashMap<String, String> quoteMap = new HashMap<>();
+        QuoteModel quotes = new QuoteModel();
 
         while (cursor.moveToNext()) {
-            quoteMap.put(cursor.getString(0), cursor.getString(1));
+            quotes.setAuthor(cursor.getString(0));
+            quotes.setQuote(cursor.getString(1));
         }
         cursor.close();
 
-        return quoteMap;
+        return quotes;
     }
 }

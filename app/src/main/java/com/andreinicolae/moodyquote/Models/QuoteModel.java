@@ -8,6 +8,9 @@ public class QuoteModel {
     private String author;
     private String quote;
 
+    public QuoteModel() {
+    }
+
     public QuoteModel(String author, String quote) {
         this.author = author;
         this.quote = quote;
@@ -19,5 +22,13 @@ public class QuoteModel {
 
     public String getQuote() {
         return quote;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 }

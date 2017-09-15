@@ -7,7 +7,8 @@
     tools:context="com.andreinicolae.moodyquote.Activities.MoodyQuoteActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSad"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="124dp"
         android:layout_height="47dp"
         android:layout_marginBottom="8dp"
@@ -22,14 +23,15 @@
         app:layout_constraintVertical_bias="0.391" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="113dp"
-        android:layout_height="21dp"
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="Hi! How are you?"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -38,7 +40,8 @@
         tools:layout_editor_absoluteY="82dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnNostalgic"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="124dp"
         android:layout_height="47dp"
         android:layout_marginBottom="8dp"
@@ -53,7 +56,8 @@
         app:layout_constraintVertical_bias="0.498" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnFearful"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="124dp"
         android:layout_height="47dp"
         android:layout_marginBottom="8dp"
@@ -67,7 +71,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnDoubtful"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="124dp"
         android:layout_height="47dp"
         android:layout_marginBottom="8dp"

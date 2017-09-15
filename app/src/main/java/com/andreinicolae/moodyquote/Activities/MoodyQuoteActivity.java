@@ -23,7 +23,8 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent myIntent = new Intent(MoodyQuoteActivity.this, QuoteManagementActivity.class);
+                startActivity(myIntent);
             }
         });
     }

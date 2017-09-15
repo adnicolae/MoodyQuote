@@ -11,7 +11,7 @@ import static com.andreinicolae.moodyquote.Database.QuoteDbContract.QuoteEntry;
 /**
  *  SQL Helper Class to create and maintain the database and tables.
  */
-
+// TODO: add constraint on data insertion
 public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Quote.db";
@@ -33,6 +33,7 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL("INSERT INTO quote_table VALUES (null, \"INSERT\", \"INSSEEERT\", \"Nostalgic\")");
     }
 
     @Override
@@ -42,6 +43,10 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertData(String author, String quote, String mood) {
+        if (author.length() < 5 || quote.length() < 5 || mood.length() < 5) {
+            return false;
+        }
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(QuoteEntry.COL_AUTHOR, author);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +20,14 @@ import java.util.List;
 import static com.andreinicolae.moodyquote.R.styleable.AlertDialog;
 import static com.andreinicolae.moodyquote.R.styleable.View;
 
+//TODO: Fix Spinner
+//TODO: Break down activities
 public class MoodyQuoteActivity extends AppCompatActivity {
     MoodyQuoteDbHelper mDbHelper;
     Button insertBtn, viewDataBtn, nostalgicBtn;
     TextView showQuote;
     EditText editAuthor, editQuote, editMood;
+    Spinner moodSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,8 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         viewDataBtn = (Button) findViewById(R.id.viewAllButton);
         showQuote = (TextView) findViewById(R.id.showQuote);
         nostalgicBtn = (Button) findViewById(R.id.nostalgicBtn);
+        moodSpinner = (Spinner) findViewById(R.id.moodSpinner);
+
 
         insertData();
         viewData();

@@ -1,7 +1,6 @@
-package com.andreinicolae.moodyquote;
+package com.andreinicolae.moodyquote.Activities;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,16 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andreinicolae.moodyquote.Database.MoodyQuoteDbHelper;
+import com.andreinicolae.moodyquote.R;
 
 import java.util.HashMap;
-import java.util.List;
-
-import static com.andreinicolae.moodyquote.R.styleable.AlertDialog;
-import static com.andreinicolae.moodyquote.R.styleable.View;
 
 //TODO: Fix Spinner
 //TODO: Break down activities
-public class MoodyQuoteActivity extends AppCompatActivity {
+public class QuoteManagementActivity extends AppCompatActivity {
     MoodyQuoteDbHelper mDbHelper;
     Button insertBtn, viewDataBtn, nostalgicBtn;
     TextView showQuote;
@@ -62,9 +58,9 @@ public class MoodyQuoteActivity extends AppCompatActivity {
                         );
 
                         if (isInserted) {
-                            Toast.makeText(MoodyQuoteActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(QuoteManagementActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(MoodyQuoteActivity.this, "Data NOT inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(QuoteManagementActivity.this, "Data NOT inserted", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
@@ -82,7 +78,7 @@ public class MoodyQuoteActivity extends AppCompatActivity {
                         // Check for data in the database
                         if (cursor.getCount() == 0) {
                             showMessage("Error", "No data found!");
-//                            Toast.makeText(MoodyQuoteActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(QuoteManagementActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
                         }
 
                         StringBuffer buffer = new StringBuffer();
@@ -97,7 +93,7 @@ public class MoodyQuoteActivity extends AppCompatActivity {
                         cursor.close();
 
                         showMessage("Data", buffer.toString());
-//                        Toast.makeText(MoodyQuoteActivity.this, buffer.toString(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(QuoteManagementActivity.this, buffer.toString(), Toast.LENGTH_LONG).show();
                     }
                 }
         );

@@ -28,7 +28,7 @@ public class QuoteManagementActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moody_quote);
+        setContentView(R.layout.activity_quote_management);
         mDbHelper = new MoodyQuoteDbHelper(this);
 
         editAuthor = (EditText) findViewById(R.id.editAuthor);

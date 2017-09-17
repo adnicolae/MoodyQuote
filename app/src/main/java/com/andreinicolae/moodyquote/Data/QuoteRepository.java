@@ -3,10 +3,11 @@ package com.andreinicolae.moodyquote.Data;
 import com.andreinicolae.moodyquote.Models.Quote;
 
 /**
- * Created by Andrei Nicolae on 9/17/2017.
+ * Repository class to organise quote data.
  */
 
 public class QuoteRepository {
+
     private static Quote[] _quotes = new Quote[]  {
             new Quote("Winston Churchill", "A pessimist sees the difficulty in every opportunity; an optimist sees the opportunity in every difficulty.", "Doubtful"),
             new Quote("Dr. Seuss", "Don’t cry because it’s over, smile because it happened.", "Nostalgic"),

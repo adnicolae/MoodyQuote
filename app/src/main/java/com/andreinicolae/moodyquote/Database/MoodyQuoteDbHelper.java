@@ -6,15 +6,18 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.andreinicolae.moodyquote.Data.QuoteRepository;
+import com.andreinicolae.moodyquote.Models.Quote;
+
 import static com.andreinicolae.moodyquote.Database.QuoteDbContract.QuoteEntry;
 
 /**
  *  SQL Helper Class to create and maintain the database and tables.
  */
-// TODO: add constraint on data insertion
 public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Quote.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "Quote.db";
+    private QuoteRepository _quoteRepository = null;
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + QuoteEntry.TABLE_NAME + " (" +
@@ -28,12 +31,17 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
 
     public MoodyQuoteDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        _quoteRepository = new QuoteRepository();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
-        db.execSQL("INSERT INTO quote_table VALUES (null, \"INSERT\", \"INSSEEERT\", \"Nostalgic\")");
+
+        for (Quote quote : _quoteRepository.getQuotes()) {
+            db.execSQL("INSERT INTO quote_table VALUES (null,\"" + quote.getAuthor() + "\", \"" +
+                    quote.getQuote() +"\", \"" + quote.getMood() + "\")");
+        }
     }
 
     @Override

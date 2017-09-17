@@ -19,6 +19,7 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Quote.db";
     private QuoteRepository _quoteRepository = null;
 
+    // Defines the table.
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + QuoteEntry.TABLE_NAME + " (" +
             QuoteEntry._ID + " INTEGER PRIMARY KEY," +
@@ -50,6 +51,13 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Facilitates db insertion of quotes by the user.
+     * @param author The quote's author.
+     * @param quote The quote's message.
+     * @param mood  The quote's mood;
+     * @return true if a new database row has been created.
+     */
     public boolean insertData(String author, String quote, String mood) {
         if (author.length() < 5 || quote.length() < 5 || mood.length() < 5) {
             return false;
@@ -66,20 +74,24 @@ public class MoodyQuoteDbHelper extends SQLiteOpenHelper {
         */
         long newRow = db.insert(QuoteEntry.TABLE_NAME, null, values);
 
-        if (newRow == -1) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return (newRow != -1);
     }
 
+    /**
+     * Facilitates entire quote data retrieval.
+     * @return A cursor containing the results statements.
+     */
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + QuoteEntry.TABLE_NAME, null);
         return cursor;
     }
 
+    /**
+     * Facilitates random quote data retrieval for a given mood.
+     * @param mood The mood of the quote to be retrieved.
+     * @return A cursor containing result statements.
+     */
     public Cursor readData(String mood) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] projection = {

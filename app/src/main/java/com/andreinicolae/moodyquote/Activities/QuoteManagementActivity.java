@@ -1,6 +1,7 @@
 package com.andreinicolae.moodyquote.Activities;
 
 import android.database.Cursor;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,11 @@ public class QuoteManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_management);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         mDbHelper = new MoodyQuoteDbHelper(this);
 
         editAuthor = (EditText) findViewById(R.id.editAuthor);
@@ -91,7 +97,6 @@ public class QuoteManagementActivity extends AppCompatActivity {
                         cursor.close();
 
                         showMessage("Data", buffer.toString());
-//                        Toast.makeText(QuoteManagementActivity.this, buffer.toString(), Toast.LENGTH_LONG).show();
                     }
                 }
         );
@@ -129,6 +134,12 @@ public class QuoteManagementActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(message);
         builder.show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
 }

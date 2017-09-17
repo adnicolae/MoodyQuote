@@ -16,3 +16,8 @@ Download the MoodyQuote.APK file from within the repository and install on an An
   <li><a href="https://developer.android.com/training/basics/data-storage/databases.html">Saving Data in SQL Databases</a></li>
   <li><a href="https://android.jlelse.eu/android-mvp-for-beginners-25889c500443">Android MVP for Beginners</a></li>
 </ul>
+
+---
+> [adnicolae.github.io](https://adnicolae.github.io/) &nbsp;&middot;&nbsp;
+> GitHub [@adnicolae](https://github.com/adnicolae) &nbsp;&middot;&nbsp;
+> LinkedIn [@andreinicolae](https://www.linkedin.com/in/andreinicolae/)

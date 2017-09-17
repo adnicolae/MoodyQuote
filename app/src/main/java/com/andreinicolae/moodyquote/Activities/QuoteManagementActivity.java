@@ -19,33 +19,29 @@ import java.util.HashMap;
 
 public class QuoteManagementActivity extends AppCompatActivity {
     MoodyQuoteDbHelper mDbHelper;
-    Button insertBtn, viewDataBtn, nostalgicBtn;
-    TextView showQuote;
+    Button insertBtn, viewDataBtn;
     EditText editAuthor, editQuote, editMood;
-    Spinner moodSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_management);
 
+        // Define action bar behaviour.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("Quote Management");
-//            actionBar.setDisplayShowTitleEnabled(false);
         }
 
         mDbHelper = new MoodyQuoteDbHelper(this);
-
         editAuthor = (EditText) findViewById(R.id.editAuthor);
         editQuote = (EditText) findViewById(R.id.editQuote);
         editMood = (EditText) findViewById(R.id.editMood);
         insertBtn = (Button) findViewById(R.id.insertButton);
         viewDataBtn = (Button) findViewById(R.id.viewAllButton);
-        showQuote = (TextView) findViewById(R.id.showQuote);
 
-
+        // Enable data insertion and retrieval functionality.
         insertData();
         viewData();
     }
@@ -62,9 +58,9 @@ public class QuoteManagementActivity extends AppCompatActivity {
                         );
 
                         if (isInserted) {
-                            Toast.makeText(QuoteManagementActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(QuoteManagementActivity.this, "Data inserted.", Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(QuoteManagementActivity.this, "Data NOT inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(QuoteManagementActivity.this, "Data NOT inserted.", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
@@ -82,7 +78,6 @@ public class QuoteManagementActivity extends AppCompatActivity {
                         // Check for data in the database
                         if (cursor.getCount() == 0) {
                             showMessage("Error", "No data found!");
-//                            Toast.makeText(QuoteManagementActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
                         }
 
                         StringBuffer buffer = new StringBuffer();
@@ -102,6 +97,11 @@ public class QuoteManagementActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Create alert dialog containing the quote data.
+     * @param title Dialog title.
+     * @param message Data to be displayed.
+     */
     public void showMessage(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);

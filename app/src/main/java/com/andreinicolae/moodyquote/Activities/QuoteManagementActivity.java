@@ -16,8 +16,6 @@ import com.andreinicolae.moodyquote.R;
 
 import java.util.HashMap;
 
-//TODO: Fix Spinner
-//TODO: Break down activities
 public class QuoteManagementActivity extends AppCompatActivity {
     MoodyQuoteDbHelper mDbHelper;
     Button insertBtn, viewDataBtn, nostalgicBtn;

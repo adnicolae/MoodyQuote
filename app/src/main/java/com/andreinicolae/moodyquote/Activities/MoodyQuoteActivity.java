@@ -3,6 +3,7 @@ package com.andreinicolae.moodyquote.Activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -63,7 +64,7 @@ public class MoodyQuoteActivity extends AppCompatActivity {
                     @Override
                     public void onClick (View v) {
                         QuoteModel quotes = viewSelection(btn.getText().toString());
-                        Toast.makeText(MoodyQuoteActivity.this, "Author: " + quotes.getAuthor() + "; Quote: " + quotes.getQuote(), Toast.LENGTH_SHORT).show();
+                        quotes.showQuoteDialog("Here is a quote to make you feel better: ", "\"" + quotes.getQuote() + "\" \n by " + quotes.getAuthor(), v.getContext());
                     }
                 }
         );

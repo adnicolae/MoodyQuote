@@ -3,20 +3,14 @@ package com.andreinicolae.moodyquote.Activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.andreinicolae.moodyquote.Database.MoodyQuoteDbHelper;
-import com.andreinicolae.moodyquote.Models.QuoteModel;
+import com.andreinicolae.moodyquote.Models.Quote;
 import com.andreinicolae.moodyquote.R;
-
-import java.util.HashMap;
-
-import static com.andreinicolae.moodyquote.R.id.showQuote;
 
 public class MoodyQuoteActivity extends AppCompatActivity {
     Button nostalgicBtn, sadBtn, fearfulBtn, doubtfulBtn;
@@ -63,17 +57,17 @@ public class MoodyQuoteActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick (View v) {
-                        QuoteModel quotes = viewSelection(btn.getText().toString());
-                        quotes.showQuoteDialog("Here is a quote to make you feel better: ", "\"" + quotes.getQuote() + "\" \n by " + quotes.getAuthor(), v.getContext());
+                        Quote quotes = viewSelection(btn.getText().toString());
+                        quotes.showQuoteDialog(v.getContext());
                     }
                 }
         );
     }
 
-    public QuoteModel viewSelection(String mood) {
+    public Quote viewSelection(String mood) {
         Cursor cursor = mDbHelper.readData(mood);
 
-        QuoteModel quotes = new QuoteModel();
+        Quote quotes = new Quote();
 
         while (cursor.moveToNext()) {
             quotes.setAuthor(cursor.getString(0));

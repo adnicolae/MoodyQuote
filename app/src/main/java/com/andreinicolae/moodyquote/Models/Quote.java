@@ -7,16 +7,18 @@ import android.support.v7.app.AlertDialog;
  * Class to model a Quote-Author pair.
  */
 
-public class QuoteModel {
+public class Quote {
     private String author;
     private String quote;
+    private String mood;
 
-    public QuoteModel() {
+    public Quote() {
     }
 
-    public QuoteModel(String author, String quote) {
+    public Quote(String author, String quote, String mood) {
         this.author = author;
         this.quote = quote;
+        this.mood = mood;
     }
 
     public String getAuthor() {
@@ -27,6 +29,10 @@ public class QuoteModel {
         return quote;
     }
 
+    public String getMood() { return mood; }
+
+    public void setMood(String mood) { this.mood = mood; }
+
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -35,11 +41,11 @@ public class QuoteModel {
         this.quote = quote;
     }
 
-    public void showQuoteDialog(String title, String message, Context context) {
+    public void showQuoteDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(message);
+        builder.setTitle("Here is a quote to make you feel better: ");
+        builder.setMessage("\"" + this.getQuote() + "\"\n\nby " + this.getAuthor());
         builder.show();
     }
 }

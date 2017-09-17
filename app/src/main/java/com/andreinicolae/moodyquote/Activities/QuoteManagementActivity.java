@@ -28,9 +28,12 @@ public class QuoteManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_management);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("Quote Management");
+//            actionBar.setDisplayShowTitleEnabled(false);
         }
 
         mDbHelper = new MoodyQuoteDbHelper(this);
@@ -41,13 +44,10 @@ public class QuoteManagementActivity extends AppCompatActivity {
         insertBtn = (Button) findViewById(R.id.insertButton);
         viewDataBtn = (Button) findViewById(R.id.viewAllButton);
         showQuote = (TextView) findViewById(R.id.showQuote);
-        nostalgicBtn = (Button) findViewById(R.id.nostalgicBtn);
-        moodSpinner = (Spinner) findViewById(R.id.moodSpinner);
 
 
         insertData();
         viewData();
-        showQuote(nostalgicBtn);
     }
 
     public void insertData() {
@@ -100,32 +100,6 @@ public class QuoteManagementActivity extends AppCompatActivity {
                     }
                 }
         );
-    }
-
-    public void showQuote(final Button btn) {
-        btn.setOnClickListener(
-                new View.OnClickListener(){
-
-                    @Override
-                    public void onClick (View v) {
-                        HashMap<String, String> quotes = viewSelection(btn.getText().toString());
-                        showQuote.setText(quotes.toString());
-                    }
-                }
-        );
-    }
-
-    public HashMap<String, String> viewSelection(String mood) {
-        Cursor cursor = mDbHelper.readData(mood);
-
-        HashMap<String, String> quoteMap = new HashMap<>();
-
-        while (cursor.moveToNext()) {
-            quoteMap.put(cursor.getString(0), cursor.getString(1));
-        }
-        cursor.close();
-
-        return quoteMap;
     }
 
     public void showMessage(String title, String message) {

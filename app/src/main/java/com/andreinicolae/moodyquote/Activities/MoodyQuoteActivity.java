@@ -38,6 +38,9 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Define Intent and activity transition on floating action button.
+     */
     public void linkActivities() {
         final Intent myIntent = new Intent(MoodyQuoteActivity.this, QuoteManagementActivity.class);
         floatingBtn.setOnClickListener(
@@ -51,20 +54,29 @@ public class MoodyQuoteActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Open an alert dialog containing the quote on button click.
+     * @param btn The button that has been clicked.
+     */
     public void showQuote(final Button btn) {
         btn.setOnClickListener(
                 new View.OnClickListener(){
 
                     @Override
                     public void onClick (View v) {
-                        Quote quotes = viewSelection(btn.getText().toString());
-                        quotes.showQuoteDialog(v.getContext());
+                        Quote quote = getQuoteBasedOnMood(btn.getText().toString());
+                        quote.showQuoteDialog(v.getContext());
                     }
                 }
         );
     }
 
-    public Quote viewSelection(String mood) {
+    /**
+     * Returns a random quote given a certain mood.
+     * @param mood The mood of the quote to be retrieved.
+     * @return Random quote by mood.
+     */
+    public Quote getQuoteBasedOnMood(String mood) {
         Cursor cursor = mDbHelper.readData(mood);
 
         Quote quotes = new Quote();
